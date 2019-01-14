@@ -1,9 +1,13 @@
 package com.schoolhepler.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String username;
     private String pwd;

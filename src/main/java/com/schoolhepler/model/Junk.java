@@ -1,8 +1,13 @@
 package com.schoolhepler.model;
 
-import java.util.Date;
 
+import javax.persistence.*;
+import java.util.Date;
+@Entity
+@Table
 public class Junk {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String name;
     private String msg;
