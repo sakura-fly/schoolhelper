@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class LostThingDao extends BaseDaoImpl<LostThing> {
+    public LostThingDao() {
+        super.table = "LostThing";
+    }
 }
