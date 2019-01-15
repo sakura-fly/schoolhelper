@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JunkDao extends ThingDaoImpl<Junk> {
     public JunkDao() {
-        super.table="Junk";
+        super.table = "Junk";
     }
 
 }

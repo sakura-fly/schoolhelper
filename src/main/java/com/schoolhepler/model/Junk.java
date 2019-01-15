@@ -3,11 +3,12 @@ package com.schoolhepler.model;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 @Table
 public class Junk {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String msg;

@@ -1,7 +1,6 @@
 package com.schoolhepler.util;
 
 
-
 import com.schoolhepler.model.SensorData;
 
 import java.lang.reflect.Field;
@@ -42,6 +41,7 @@ public class RrelationData {
             }
         }
     }
+
     /**
      * 检查是否为空
      *

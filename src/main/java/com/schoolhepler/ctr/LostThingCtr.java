@@ -1,10 +1,11 @@
 package com.schoolhepler.ctr;
 
-import com.schoolhepler.model.Junk;
+import com.schoolhepler.model.LostThing;
 import com.schoolhepler.model.response.ResponseListModel;
 import com.schoolhepler.model.response.ResponseModel;
 import com.schoolhepler.model.response.ResponseOneModel;
-import com.schoolhepler.service.impl.JunkService;
+import com.schoolhepler.service.impl.LostThingService;
+import com.schoolhepler.service.impl.LostThingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,36 +15,34 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/junk")
-public class JunkCtr {
-
+@RequestMapping("/lostthing")
+public class LostThingCtr {
     @Resource
-    private JunkService junkService;
+    private LostThingService lostThingService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseListModel<Junk> list(Junk junk) {
-        return junkService.query(junk);
+    public ResponseListModel<LostThing> list(LostThing lostThing) {
+        return lostThingService.query(lostThing);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ResponseOneModel<Junk> find(Junk junk) {
-        return junkService.find(junk);
+    public ResponseOneModel<LostThing> find(LostThing lostThing) {
+        return lostThingService.find(lostThing);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel add(Junk junk, MultipartFile picfile, HttpSession session) {
+    public ResponseModel add(LostThing lostThing, MultipartFile picfile, HttpSession session) {
         try {
             String path = session.getServletContext().getRealPath("/pic");
             String fileName = UUID.randomUUID().toString() + picfile.getOriginalFilename().substring(picfile.getOriginalFilename().lastIndexOf("."));
-            junk.setPic("/pic/" + fileName);
+            lostThing.setPic("/pic/" + fileName);
             File f = new File(path, fileName);
             picfile.transferTo(f);
         } catch (Exception e) {
@@ -53,9 +52,8 @@ public class JunkCtr {
             e.printStackTrace();
             return r;
         }
-        junk.setTime(new Date());
-        return junkService.add(junk);
+        lostThing.setTime(new Date());
+        return lostThingService.add(lostThing);
     }
-
 
 }

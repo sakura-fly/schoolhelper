@@ -6,10 +6,13 @@ import com.schoolhepler.model.response.ResponseOneModel;
 
 public interface BaseService<T> {
     ResponseModel add(T t);
+
     ResponseOneModel<T> find(T t);
-    ResponseListModel<T> list (T t);
+
+    ResponseListModel<T> list(T t);
 
     void resSuccess(ResponseModel r);
+
     void reserr(ResponseModel r);
 
 }

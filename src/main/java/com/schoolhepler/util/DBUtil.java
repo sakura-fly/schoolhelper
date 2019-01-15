@@ -28,12 +28,12 @@ public class DBUtil {
     }
 
     private static StringBuilder getStringBuilder(StringBuilder zds, String[] zd) {
-        if (zd.length == 0){
+        if (zd.length == 0) {
             zds = new StringBuilder("*");
         } else {
-            for (int i = 0; i < zd.length; i++){
+            for (int i = 0; i < zd.length; i++) {
                 zds.append(zd[i]);
-                if (i < zd.length - 1){
+                if (i < zd.length - 1) {
                     zds.append(", ");
                 }
             }
@@ -83,9 +83,6 @@ public class DBUtil {
         }
         return sql;
     }
-
-
-
 
 
 }

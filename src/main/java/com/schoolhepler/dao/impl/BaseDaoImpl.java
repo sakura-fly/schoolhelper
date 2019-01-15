@@ -18,6 +18,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Resource
     SessionFactory sessionFactory;
+
     @Override
     public List<T> list(T t) {
         Session session = sessionFactory.openSession();
@@ -26,7 +27,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         try {
             NativeQuery sql = DBUtil.getQuerySql(session, table, t);
             sql.addEntity(t.getClass());
-            r=  sql.list();
+            r = sql.list();
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         } catch (Exception e) {
             e.printStackTrace();
             stat = -1;
-        }finally {
+        } finally {
             session.close();
         }
         return stat;

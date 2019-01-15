@@ -21,7 +21,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (r == 1){
+        if (r == 1) {
             resSuccess(responseModel);
         } else {
             reserr(responseModel);
