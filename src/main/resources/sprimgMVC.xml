@@ -9,6 +9,16 @@
     <context:component-scan base-package="com.schoolhepler.dao"/>
     <context:component-scan base-package="com.schoolhepler.service"/>
 
+    <!-- 上传图片 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 上传尺寸为B ，这里是1M -->
+        <!--<property name="maxUploadSize" value="1048576"/>-->
+    </bean>
+
+    <mvc:resources location="/" mapping="/**"/>
+
+
+
     <!--配置hibernate-->
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" lazy-init="false">
