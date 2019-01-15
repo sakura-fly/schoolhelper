@@ -12,6 +12,22 @@ public class DBUtil {
     public static NativeQuery getQuerySql(Session session, String table, Object o, String... zd) {
         List<SensorData> rre = RrelationData.sensorDataList(o);
         StringBuilder zds = new StringBuilder();
+        // 查询字段，不穿查全部，赋值*
+        zds = getStringBuilder(zds, zd);
+        String sqlStr = "select " + zds.toString() + " from " + table + getQuerySql(rre);
+        return getQuerySql(sqlStr, session, rre);
+    }
+
+    public static NativeQuery getQuerySqlOrLike(Session session, String table, Object o, String... zd) {
+        List<SensorData> rre = RrelationData.sensorDataList(o);
+        StringBuilder zds = new StringBuilder();
+        // 查询字段，不穿查全部，赋值*
+        zds = getStringBuilder(zds, zd);
+        String sqlStr = "select " + zds.toString() + " from " + table + getQuerySqlByOr(rre);
+        return getQuerySqlByLike(sqlStr, session, rre);
+    }
+
+    private static StringBuilder getStringBuilder(StringBuilder zds, String[] zd) {
         if (zd.length == 0){
             zds = new StringBuilder("*");
         } else {
@@ -22,9 +38,9 @@ public class DBUtil {
                 }
             }
         }
-        String sqlStr = "select " + zds.toString() + " from " + table + getQuerySql(rre);
-        return getQuerySql(sqlStr, session, rre);
+        return zds;
     }
+
 
     public static String getQuerySql(List<SensorData> rre) {
         StringBuilder sb = new StringBuilder(" where ");
@@ -45,7 +61,7 @@ public class DBUtil {
             return "";
         }
         for (int i = 0; i < rre.size(); i++) {
-            sb.append(rre.get(i).getSensorId()).append(" = ? ");
+            sb.append(rre.get(i).getSensorId()).append(" like ? ");
             if (i < rre.size() - 1)
                 sb.append(" or ");
         }
@@ -67,6 +83,7 @@ public class DBUtil {
         }
         return sql;
     }
+
 
 
 

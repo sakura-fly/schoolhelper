@@ -23,7 +23,7 @@ public class JunkCtr {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public ResponseListModel<Junk> list(Junk junk) {
-        return junkService.list(junk);
+        return junkService.query(junk);
     }
 
     @RequestMapping(method = RequestMethod.GET)

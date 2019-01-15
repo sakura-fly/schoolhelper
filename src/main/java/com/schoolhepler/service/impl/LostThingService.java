@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class LostThingService extends BaseServiceImpl<LostThing> {
+public class LostThingService extends ThingServiceImpl<LostThing> {
 
     private
     LostThingDao lostThingDao;

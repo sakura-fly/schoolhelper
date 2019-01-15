@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class JunkService extends BaseServiceImpl<Junk> {
+public class JunkService extends ThingServiceImpl<Junk> {
 
 
     private JunkDao junkDao;
