@@ -42,7 +42,7 @@ public class JunkCtr {
     public ResponseModel add(Junk junk, MultipartFile picfile, HttpSession session) {
         try {
             String path = session.getServletContext().getRealPath("/pic");
-            String fileName = UUID.randomUUID().toString() + "." + picfile.getOriginalFilename();
+            String fileName = UUID.randomUUID().toString() + picfile.getOriginalFilename().substring(picfile.getOriginalFilename().lastIndexOf("."));
             junk.setPic("/pic/" + fileName);
             File f = new File(path,fileName);
             System.out.println(f);
