@@ -39,7 +39,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T find(T t) {
-        return list(t).get(0);
+        List<T> l = list(t);
+        if (l.size() == 0)
+            return null;
+        return l.get(0);
     }
 
     @Override
@@ -51,8 +54,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             session.save(t);
             tt.commit();
         } catch (Exception e) {
+            boolean isDuplicate = false;
+            try {
+                isDuplicate = e.getCause().getCause().getMessage().contains("Duplicate");
+                System.out.println(e.getCause().getCause().getMessage());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            } finally {
+                if (isDuplicate){
+                    stat = -3;
+                } else {
+                    stat = -1;
+                }
+            }
             e.printStackTrace();
-            stat = -1;
         } finally {
             session.close();
         }

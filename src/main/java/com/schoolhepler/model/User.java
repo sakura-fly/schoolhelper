@@ -1,16 +1,34 @@
 package com.schoolhepler.model;
 
+import jdk.nashorn.internal.objects.annotations.Property;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
+@Table()
 public class User {
+    public User() {
+    }
+
+    public User(int id, String username, String acc, String wx, String qq, String phone, String name, Date time) {
+        this.id = id;
+        this.username = username;
+        this.acc = acc;
+        this.wx = wx;
+        this.qq = qq;
+        this.phone = phone;
+        this.name = name;
+        this.time = time;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String username;
+    @Column(nullable = false,length = 16)
     private String pwd;
+    @Column(unique = true, nullable = false,length = 12)
     private String acc;
     private String wx;
     private String qq;

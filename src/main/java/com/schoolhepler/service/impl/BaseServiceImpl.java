@@ -24,8 +24,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         if (r == 1) {
             resSuccess(responseModel);
         } else {
-            reserr(responseModel);
-
+            responseModel.setCode(r);
+            responseModel.setMsg("err");
         }
         return responseModel;
     }
