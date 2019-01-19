@@ -1,10 +1,6 @@
 package com.schoolhepler.dao.impl;
 
 import com.schoolhepler.model.User;
-import com.schoolhepler.util.DBUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Repository;
 
 

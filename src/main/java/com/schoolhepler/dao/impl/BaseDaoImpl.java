@@ -6,12 +6,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseDaoImpl<T> implements BaseDao<T> {
+public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     String table;
 
@@ -19,9 +23,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Resource
     SessionFactory sessionFactory;
 
+    // public Class getObjClass() {
+    //     return null;
+    // }
+
     @Override
     public List<T> list(T t) {
         Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<?> query = builder.createQuery(t.getClass());
+        Root root = query.from(t.getClass());
+        query.select(root).where(builder.equal(root.get("id"),1));
+        Query cq = session.createQuery(query);
+        List l = cq.list();
+        System.out.println(l.get(0));
         Transaction tx = session.beginTransaction();
         List<T> r = new ArrayList<>();
         try {
