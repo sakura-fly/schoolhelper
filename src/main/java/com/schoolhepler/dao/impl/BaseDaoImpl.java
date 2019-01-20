@@ -2,6 +2,7 @@ package com.schoolhepler.dao.impl;
 
 import com.schoolhepler.dao.BaseDao;
 import com.schoolhepler.util.DBUtil;
+import com.schoolhepler.util.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,7 +16,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseDaoImpl<T> implements BaseDao<T> {
+public class BaseDaoImpl<T> implements BaseDao<T> {
 
     String table;
 
@@ -23,26 +24,15 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Resource
     SessionFactory sessionFactory;
 
-    // public Class getObjClass() {
-    //     return null;
-    // }
 
     @Override
     public List<T> list(T t) {
         Session session = sessionFactory.openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<?> query = builder.createQuery(t.getClass());
-        Root root = query.from(t.getClass());
-        query.select(root).where(builder.equal(root.get("id"),1));
-        Query cq = session.createQuery(query);
-        List l = cq.list();
-        System.out.println(l.get(0));
         Transaction tx = session.beginTransaction();
         List<T> r = new ArrayList<>();
         try {
-            NativeQuery sql = DBUtil.getQuerySql(session, table, t);
-            sql.addEntity(t.getClass());
-            r = sql.list();
+            Query query = HibernateUtils.getQuery(session, t);
+            r = query.list();
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,15 +60,20 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
             tt.commit();
         } catch (Exception e) {
             boolean isDuplicate = false;
+            // 判断是否是用户名重复
             try {
+                // 获取异常是否是Duplicate
                 isDuplicate = e.getCause().getCause().getMessage().contains("Duplicate");
+                // 打印异常名
                 System.out.println(e.getCause().getCause().getMessage());
             } catch (Exception e1) {
                 e1.printStackTrace();
             } finally {
+                // 如果是重复就设置状态码是-3
                 if (isDuplicate){
                     stat = -3;
                 } else {
+                    // 其他设置-1
                     stat = -1;
                 }
             }
