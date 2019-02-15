@@ -17,6 +17,10 @@ public class Junk {
     private Date time;
     private int uid;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uid", insertable = false, updatable = false)
+    private User user;
+
     public int getId() {
         return id;
     }
@@ -71,6 +75,14 @@ public class Junk {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
