@@ -15,6 +15,7 @@ public class Junk {
     private double price;
     private String pic;
     private Date time;
+    @Column(nullable = false)
     private int uid;
 
     @OneToOne(cascade = CascadeType.ALL)
