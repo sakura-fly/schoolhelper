@@ -42,7 +42,7 @@ public class LostThingCtr {
         try {
             String path = session.getServletContext().getRealPath("/pic");
             String fileName = UUID.randomUUID().toString() + picfile.getOriginalFilename().substring(picfile.getOriginalFilename().lastIndexOf("."));
-            lostThing.setPic("/pic/" + fileName);
+            lostThing.setPic("/schoolhelper/pic/" + fileName);
             File f = new File(path, fileName);
             picfile.transferTo(f);
         } catch (Exception e) {
