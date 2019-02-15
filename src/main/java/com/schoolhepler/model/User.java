@@ -122,4 +122,8 @@ public class User {
                 ", time=" + time +
                 '}';
     }
+
+    public void init(){
+        time = time == null ? new Date() : time;
+    }
 }

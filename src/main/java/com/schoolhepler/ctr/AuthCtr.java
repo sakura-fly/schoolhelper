@@ -31,6 +31,7 @@ public class AuthCtr {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public ResponseModel regist(User u) {
+        u.init();
         return userService.add(u);
     }
 }
