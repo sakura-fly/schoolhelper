@@ -19,6 +19,7 @@ public class AllFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+        filterChain.doFilter(request,response);
     }
 
     @Override
