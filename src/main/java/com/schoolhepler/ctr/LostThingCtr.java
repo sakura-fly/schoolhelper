@@ -6,6 +6,7 @@ import com.schoolhepler.model.response.ResponseModel;
 import com.schoolhepler.model.response.ResponseOneModel;
 import com.schoolhepler.service.impl.LostThingService;
 import com.schoolhepler.service.impl.LostThingService;
+import com.schoolhepler.util.BaseFileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,13 +39,16 @@ public class LostThingCtr {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel add(LostThing lostThing, MultipartFile picfile, HttpSession session) {
+    public ResponseModel add(LostThing lostThing, String picfile, HttpSession session) {
         try {
             String path = session.getServletContext().getRealPath("/pic");
-            String fileName = UUID.randomUUID().toString() + picfile.getOriginalFilename().substring(picfile.getOriginalFilename().lastIndexOf("."));
+            File f = new File(path);
+            if (!f.exists()){
+                f.mkdirs();
+            }
+            String fileName = UUID.randomUUID().toString() + ".jpg";
             lostThing.setPic("/schoolhelper/pic/" + fileName);
-            File f = new File(path, fileName);
-            picfile.transferTo(f);
+            BaseFileUtil.base64ToFile(path,picfile,fileName);
         } catch (Exception e) {
             ResponseModel r = new ResponseModel();
             r.setMsg("pic err");

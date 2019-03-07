@@ -9,7 +9,7 @@ public class BaseFileUtil {
 
     //BASE64解码成File文件
     public static void base64ToFile(String destPath,String base64, String fileName) {
-        base64 = base64.replace("data:image/jpeg;base64,", "");//base64解密部分乱码问题（“+” 号，在urlecode编码中会被解码成空格）
+        base64 = base64.replace("data:image/jpeg;base64,", "").replace("\n","");//base64解密部分乱码问题（“+” 号，在urlecode编码中会被解码成空格）
         File file = null;
         //创建文件目录
         File  dir=new File(destPath);
