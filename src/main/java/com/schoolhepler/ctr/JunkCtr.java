@@ -26,7 +26,7 @@ public class JunkCtr {
     @Resource
     private JunkService junkService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public ResponseListModel<Junk> list(Junk junk) {
         return junkService.query(junk);
@@ -48,7 +48,7 @@ public class JunkCtr {
                 f.mkdirs();
             }
             String fileName = UUID.randomUUID().toString() + ".jpg";
-            junk.setPic("/schoolhelper/pic/" + fileName);
+            junk.setPic("/pic/" + fileName);
             BaseFileUtil.base64ToFile(path,picfile,fileName);
         } catch (Exception e) {
             ResponseModel r = new ResponseModel();

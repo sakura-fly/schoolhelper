@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 @WebFilter("/*")
 public class AllFilter implements Filter {
@@ -19,6 +20,12 @@ public class AllFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+        System.out.println(request.getParameter("name"));
+        System.out.println(request.getRequestURL());
+        Enumeration<String> k = request.getParameterNames();
+        while (k.hasMoreElements()){
+            System.out.println(k.nextElement());
+        }
         filterChain.doFilter(request,response);
     }
 

@@ -25,7 +25,7 @@ public class LostThingCtr {
     @Resource
     private LostThingService lostThingService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public ResponseListModel<LostThing> list(LostThing lostThing) {
         return lostThingService.query(lostThing);
@@ -47,7 +47,7 @@ public class LostThingCtr {
                 f.mkdirs();
             }
             String fileName = UUID.randomUUID().toString() + ".jpg";
-            lostThing.setPic("/schoolhelper/pic/" + fileName);
+            lostThing.setPic("/pic/" + fileName);
             BaseFileUtil.base64ToFile(path,picfile,fileName);
         } catch (Exception e) {
             ResponseModel r = new ResponseModel();
